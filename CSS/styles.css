@@ -68,3 +68,24 @@ h1 {
 .celulas:nth-child(even) {
     background-color: whitesmoke;
 }
+
+.numeros-canto-esquerdo {
+    margin: 3px;
+    text-align: start;
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.letras-cantos-baixo {
+    margin: 3px;
+    text-align: start;
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.color-p {
+    color: white;
+}
