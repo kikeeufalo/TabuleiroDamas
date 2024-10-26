@@ -51,7 +51,7 @@ function ordemTabuleiro() {
     let tabuleiroOrdem = t[0].concat(t[1],t[2],t[3],t[4],t[5],t[6],t[7])
 
     for(let i = 0; i < tabuleiroOrdem.length; i++) {
-        if (tabuleiroOrdem)
+        
 
     }
 }
