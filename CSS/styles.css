@@ -1,0 +1,70 @@
+body {
+    background-color: #46685b;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+h1 {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 32pt;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #e1e3ac;
+    text-shadow: 0px 0px 15px black;
+}
+
+.game {
+    width: 100%;
+}
+
+.borda {
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+    grid-template-rows: repeat(8, 100px);
+    border: 3px solid black;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 3px;
+    width: 800px;
+    height: 800px;
+}
+
+.tabuleiro {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    border-radius: 2px;
+    background-color: black;
+}
+
+.tabuleiro div div {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    box-shadow: 0px 0px 30px black;
+}
+
+.celulas_:nth-child(odd) {
+    background-color: whitesmoke;
+}
+
+.celulas_:nth-child(even) {
+    background-color: #213435;
+}
+
+.celulas:nth-child(odd) {
+    background-color: #213435;
+}
+
+.celulas:nth-child(even) {
+    background-color: whitesmoke;
+}

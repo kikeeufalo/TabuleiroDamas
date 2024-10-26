@@ -1,2 +1,3 @@
-# TabuleiroDamas
- Jogo de tabuleiro Damas
+# Tabuleiro-Damas
+ 
+ Jogo de tabuleiro Damas em javaScript
