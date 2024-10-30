@@ -108,8 +108,6 @@ function executarMovimento(origemIndex, destinoId) {
         }
 
         ordemTabuleiro()
-    } else {
-        console.log("Movimento inválido.")
     }
 }
 
