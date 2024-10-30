@@ -1,5 +1,4 @@
 const celulas = document.querySelectorAll('.celulas, .celulas_')
-
 const t = [
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', ''],
@@ -10,19 +9,11 @@ const t = [
     ['', '', '', '', '', '', '', ''],
     ['', '', '', '', '', '', '', '']
 ]
-
 let controlePartida = true
-
 
 for (let i = 0; i < celulas.length; i++) {
     celulas[i].id = `celulas-${i}`
 }
-
-function moveJogador(idAtualCelula) {
-    console.log(idAtualCelula)
-}
-
-
 
 function jogadores() {
     const positionInicialPlayer = [
@@ -44,48 +35,105 @@ function jogadores() {
                 }
             }
         }
-
     }
-
-
-
-    console.log(t)
     ordemTabuleiro()
 }
 
 function ordemTabuleiro() {
-    let tabuleiroOrdem = t[0].concat(t[1],t[2],t[3],t[4],t[5],t[6],t[7])
+    let tabuleiroOrdem = t.flat()
 
     for (let i = 0; i < tabuleiroOrdem.length; i++) {
+        const celula = document.getElementById(`celulas-${i}`)
+        celula.innerHTML = ''
         if (tabuleiroOrdem[i] === 'A') {
-            let playerUmId = window.document.getElementById(`celulas-${i}`)
-            playerUmId.appendChild(player(`celulas-${i}`, 'p1'))
-        }else if (tabuleiroOrdem[i] === 'B') {
-            let playerUmId = window.document.getElementById(`celulas-${i}`)
-            playerUmId.appendChild(player(`celulas-${i}`, 'p2'))
+            celula.appendChild(criarPeca(`celulas-${i}`, 'p1'))
+        } else if (tabuleiroOrdem[i] === 'B') {
+            celula.appendChild(criarPeca(`celulas-${i}`, 'p2'))
         }
     }
 }
 
-function player(celulaAtual, button) {
-    const buttonPlayer = document.createElement('button')
+function criarPeca(celulaAtual, tipoPeca) {
+    const peca = document.createElement('button')
+    peca.style.width = '70px'
+    peca.style.height = '70px'
+    peca.style.borderRadius = '50%'
+    peca.style.margin = '15px 0 0 0'
 
-    buttonPlayer.style.width = '70px'
-    buttonPlayer.style.height = '70px'
-    buttonPlayer.style.borderRadius = '50%'
-    buttonPlayer.style.margin = '15px 0 0 0'
-
-    buttonPlayer.addEventListener('click', function() {
-        moveJogador(celulaAtual)
+    peca.addEventListener('click', function () {
+        selecionarPeca(celulaAtual)
     })
 
-    if (button === 'p1') {
-        buttonPlayer.style.background = 'whitesmoke'
-        buttonPlayer.id = 'playerBranco'
-    }else if (button === 'p2') {
-        buttonPlayer.style.background = 'black'
-        buttonPlayer.id = 'playerPreto'
+    if (tipoPeca === 'p1') {
+        peca.style.background = 'whitesmoke'
+        peca.id = 'playerBranco'
+    } else if (tipoPeca === 'p2') {
+        peca.style.background = 'black'
+        peca.id = 'playerPreto'
     }
 
-    return buttonPlayer
+    return peca
 }
+
+function selecionarPeca(idAtualCelula) {
+    const origemIndex = parseInt(idAtualCelula.split('-')[1])
+
+    celulas.forEach(celula => celula.removeEventListener('click', executarMovimento))
+
+    celulas.forEach(celula => {
+        celula.addEventListener('click', function () {
+            const destinoId = celula.id
+            executarMovimento(origemIndex, destinoId)
+        }, { once: true })
+    })
+}
+
+function executarMovimento(origemIndex, destinoId) {
+    const destinoIndex = parseInt(destinoId.split('-')[1])
+
+    const origemLinha = Math.floor(origemIndex / 8)
+    const origemColuna = origemIndex % 8
+    const destinoLinha = Math.floor(destinoIndex / 8)
+    const destinoColuna = destinoIndex % 8
+
+    if (movimentoValido(origemLinha, origemColuna, destinoLinha, destinoColuna)) {
+        t[destinoLinha][destinoColuna] = t[origemLinha][origemColuna]
+        t[origemLinha][origemColuna] = ''
+
+        const linhaPulo = (origemLinha + destinoLinha) / 2
+        const colunaPulo = (origemColuna + destinoColuna) / 2
+
+        if (Math.abs(destinoLinha - origemLinha) === 2) {
+            t[linhaPulo][colunaPulo] = ''
+        }
+
+        ordemTabuleiro()
+    } else {
+        console.log("Movimento inválido.")
+    }
+}
+
+function movimentoValido(origemLinha, origemColuna, destinoLinha, destinoColuna) {
+    const peca = t[origemLinha][origemColuna]
+    const movimentoDiagonalSimples = Math.abs(destinoLinha - origemLinha) === 1 && Math.abs(destinoColuna - origemColuna) === 1
+    const movimentoDiagonalComer = Math.abs(destinoLinha - origemLinha) === 2 && Math.abs(destinoColuna - origemColuna) === 2
+    const direcaoPermitida = (peca === 'A' && destinoLinha > origemLinha) || (peca === 'B' && destinoLinha < origemLinha)
+
+    if (movimentoDiagonalSimples && direcaoPermitida && t[destinoLinha][destinoColuna] === '') {
+        return true
+    }
+
+    if (movimentoDiagonalComer && direcaoPermitida && t[destinoLinha][destinoColuna] === '') {
+        const linhaPulo = (origemLinha + destinoLinha) / 2
+        const colunaPulo = (origemColuna + destinoColuna) / 2
+        const pecaPulada = t[linhaPulo][colunaPulo]
+
+        if (pecaPulada !== '' && pecaPulada !== peca) {
+            return true
+        }
+    }
+
+    return false
+}
+
+jogadores()
