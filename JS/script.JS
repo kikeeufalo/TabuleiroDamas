@@ -15,7 +15,7 @@ let controlePartida = true
 
 
 for (let i = 0; i < celulas.length; i++) {
-    celulas[i].id = `celulas-id-${i}`
+    celulas[i].id = `celulas-${i}`
 }
 
 function jogadores() {
@@ -50,21 +50,24 @@ function jogadores() {
 function ordemTabuleiro() {
     let tabuleiroOrdem = t[0].concat(t[1],t[2],t[3],t[4],t[5],t[6],t[7])
 
-    for(let i = 0; i < tabuleiroOrdem.length; i++) {
-        
-
+    for (let i = 0; i < tabuleiroOrdem.length; i++) {
+        if (tabuleiroOrdem[i] !== '') {
+            let playerUmId = window.document.getElementById(`celulas-${i}`)
+            playerUmId.appendChild(playerUm())
+        }
     }
 }
 
-function playerUm(id) {
+function playerUm() {
     const buttonPlayer = document.createElement('button')
-    const celulaIdParametro = document.getElementById(`${id}`)
 
-    buttonPlayer.style.width = '50px'
-    buttonPlayer.style.height = '50px'
+    buttonPlayer.style.width = '70px'
+    buttonPlayer.style.height = '70px'
     buttonPlayer.style.borderRadius = '50%'
+    buttonPlayer.style.margin = '15px 0 0 0'
 
-    celulaIdParametro.appendChild(buttonPlayer)
+
+    return buttonPlayer
 }
 
 jogadores()

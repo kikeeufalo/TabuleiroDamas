@@ -28,6 +28,7 @@ h1 {
 }
 
 .borda {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
@@ -87,5 +88,6 @@ h1 {
 }
 
 .color-p {
+    position: absolute;
     color: white;
 }
