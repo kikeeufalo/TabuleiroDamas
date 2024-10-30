@@ -22,6 +22,8 @@ function moveJogador(idAtualCelula) {
     console.log(idAtualCelula)
 }
 
+
+
 function jogadores() {
     const positionInicialPlayer = [
         ['', 'A', '', 'A', '', 'A', '', 'A'],
@@ -57,15 +59,15 @@ function ordemTabuleiro() {
     for (let i = 0; i < tabuleiroOrdem.length; i++) {
         if (tabuleiroOrdem[i] === 'A') {
             let playerUmId = window.document.getElementById(`celulas-${i}`)
-            playerUmId.appendChild(playerUm(`celulas-${i}`, 'p1'))
+            playerUmId.appendChild(player(`celulas-${i}`, 'p1'))
         }else if (tabuleiroOrdem[i] === 'B') {
             let playerUmId = window.document.getElementById(`celulas-${i}`)
-            playerUmId.appendChild(playerUm(`celulas-${i}`, 'p2'))
+            playerUmId.appendChild(player(`celulas-${i}`, 'p2'))
         }
     }
 }
 
-function playerUm(celulaAtual, button) {
+function player(celulaAtual, button) {
     const buttonPlayer = document.createElement('button')
 
     buttonPlayer.style.width = '70px'
@@ -79,11 +81,11 @@ function playerUm(celulaAtual, button) {
 
     if (button === 'p1') {
         buttonPlayer.style.background = 'whitesmoke'
+        buttonPlayer.id = 'playerBranco'
     }else if (button === 'p2') {
         buttonPlayer.style.background = 'black'
+        buttonPlayer.id = 'playerPreto'
     }
 
     return buttonPlayer
 }
-
-jogadores()
